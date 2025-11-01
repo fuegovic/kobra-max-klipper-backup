@@ -86,7 +86,7 @@ _Auto-generated list of macros found in the macros folder_
 
 - **PROBE_RESET** — Reset probe by toggling its reset pin (use when probe locks); **params:** none
 
-- **SNAPSHOT_CAMERA** — Trigger camera snapshot via mjpg-streamer (http://host:8080/?action=snapshot); **params:** HOST="localhost", OUT="/tmp", PORT="8080"
+- **TAKE_PHOTO** — Trigger camera snapshot via mjpg-streamer (http://host:8080/?action=snapshot); **params:** HOST="localhost", OUT="/tmp", PORT="8080"
 
 - **STATUS_REPORT** — Print a short status report (temperatures, bed mesh profile list); **params:** none
 
