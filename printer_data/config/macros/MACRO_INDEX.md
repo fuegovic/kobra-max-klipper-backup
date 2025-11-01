@@ -2,43 +2,9 @@
 
 _Auto-generated list of macros found in the macros folder_
 
-## calibration.cfg
+## 10_print.cfg
 
-- **CLEAR_BED_MESH** — Clear current bed mesh data from memory; **params:** none
-
-- **CALIBRATE_PROBE** — Run Klipper's probe calibration routine and save result; **params:** none
-
-- **MESH_CALIBRATE** — Run a full bed mesh calibration (KAMP), and save result; **params:** none
-
-- **MESH_LEGACY** — Run a full bed mesh calibration (legacy), and save result; **params:** none
-
-
-
-## filament.cfg
-
-- **LOAD_FILAMENT** — Heat nozzle and feed filament into hotend until primed; **params:** MAX_VELOCITY=1500, SPEED=1000, TEMP=220
-
-- **UNLOAD_FILAMENT** — Heat nozzle and retract filament fully for removal; **params:** MAX_VELOCITY=1500, SPEED=1000, TEMP=220
-
-- **FILAMENT_CHANGE** — Pause print and run a filament change workflow (heat, retract, park head); **params:** none
-
-
-
-## lighting.cfg
-
-- **LED_ON** — LED Fade In; **params:** none
-
-- **LED_OFF** — LED Fade Out; **params:** none
-
-
-
-## power.cfg
-
-- **POWER_OFF** — Safe shutdown and power off; **params:** none
-
-
-
-## print.cfg
+- **HOME** — Home all axes cleanly (G28 wrapper); **params:** none
 
 - **START_PRINT** — Prepare printer, heat bed/nozzle, home, load mesh, purge line, and begin print; **params:** BED_TEMP=60, EXTRUDER_TEMP=190, PAUSE=False
 
@@ -50,21 +16,29 @@ _Auto-generated list of macros found in the macros folder_
 
 
 
-## sound.cfg
+## 11_filament.cfg
 
-- **M300** — no description; **params:** P=100, S=1000
+- **LOAD_FILAMENT** — Heat nozzle and feed filament into hotend until primed; **params:** MAX_VELOCITY=1500, SPEED=1000, TEMP=220
 
-- **BEEP_SHORT** — Single short beep; **params:** none
+- **UNLOAD_FILAMENT** — Heat nozzle and retract filament fully for removal; **params:** MAX_VELOCITY=1500, SPEED=1000, TEMP=220
 
-- **BEEP_LONG** — Single long beep; **params:** none
-
-- **BEEP_DOUBLE** — Two quick beeps; **params:** none
-
-- **BEEP_ALERT** — Repeating triple beep (attention grabber); **params:** none
+- **FILAMENT_CHANGE** — Pause print and run a filament change workflow (heat, retract, park head); **params:** none
 
 
 
-## tuning.cfg
+## 20_calibration.cfg
+
+- **CLEAR_BED_MESH** — Clear current bed mesh data from memory; **params:** none
+
+- **CALIBRATE_PROBE** — Run Klipper's probe calibration routine and save result; **params:** none
+
+- **MESH_CALIBRATE_KAMP** — Run a full bed mesh calibration (KAMP), and save result; **params:** none
+
+- **MESH_CALIBRATE_LEGACY** — Run a full bed mesh calibration (legacy), and save result; **params:** none
+
+
+
+## 30_tuning.cfg
 
 - **PID_TUNE_HOTEND** — Run PID autotune for hotend at target temperature; **params:** TEMP=210
 
@@ -78,9 +52,7 @@ _Auto-generated list of macros found in the macros folder_
 
 
 
-## utils.cfg
-
-- **HOME_ALL** — Home all axes cleanly (G28 wrapper); **params:** none
+## 40_utils.cfg
 
 - **SAVE_AND_RESTART** — Save current config (including tuned values) and restart Klipper; **params:** none
 
@@ -92,28 +64,52 @@ _Auto-generated list of macros found in the macros folder_
 
 
 
+## 50_io.cfg
+
+- **LED_ON** — LED Fade In; **params:** none
+
+- **LED_OFF** — LED Fade Out; **params:** none
+
+- **M300** — Single short beep; **params:** P=100, S=1000
+
+- **BEEP_SHORT** — Single short beep; **params:** none
+
+- **BEEP_LONG** — Single long beep; **params:** none
+
+- **BEEP_DOUBLE** — Two quick beeps; **params:** none
+
+- **BEEP_ALERT** — Repeating triple beep (attention grabber); **params:** none
+
+
+
+## 60_power.cfg
+
+- **POWER_OFF** — Safe shutdown and power off; **params:** none
+
+
+
 ## Refile suggestions (automated hints)
 
-- **CLEAR_BED_MESH** (currently in `calibration.cfg`) — suggested group: adaptive
+- **LOAD_FILAMENT** (currently in `11_filament.cfg`) — suggested group: filament
 
-- **MESH_CALIBRATE** (currently in `calibration.cfg`) — suggested group: adaptive
+- **UNLOAD_FILAMENT** (currently in `11_filament.cfg`) — suggested group: filament
 
-- **MESH_LEGACY** (currently in `calibration.cfg`) — suggested group: adaptive
+- **FILAMENT_CHANGE** (currently in `11_filament.cfg`) — suggested group: filament
 
-- **LOAD_FILAMENT** (currently in `filament.cfg`) — suggested group: filament
+- **CLEAR_BED_MESH** (currently in `20_calibration.cfg`) — suggested group: adaptive
 
-- **UNLOAD_FILAMENT** (currently in `filament.cfg`) — suggested group: filament
+- **MESH_CALIBRATE_KAMP** (currently in `20_calibration.cfg`) — suggested group: adaptive
 
-- **FILAMENT_CHANGE** (currently in `filament.cfg`) — suggested group: filament
+- **MESH_CALIBRATE_LEGACY** (currently in `20_calibration.cfg`) — suggested group: adaptive
 
-- **LED_ON** (currently in `lighting.cfg`) — suggested group: lighting
+- **PID_TUNE_HOTEND** (currently in `30_tuning.cfg`) — suggested group: tuning
 
-- **LED_OFF** (currently in `lighting.cfg`) — suggested group: lighting, power
+- **PID_TUNE_BED** (currently in `30_tuning.cfg`) — suggested group: tuning
 
-- **POWER_OFF** (currently in `power.cfg`) — suggested group: power
+- **LED_ON** (currently in `50_io.cfg`) — suggested group: lighting
 
-- **PID_TUNE_HOTEND** (currently in `tuning.cfg`) — suggested group: tuning
+- **LED_OFF** (currently in `50_io.cfg`) — suggested group: lighting, power
 
-- **PID_TUNE_BED** (currently in `tuning.cfg`) — suggested group: tuning
+- **POWER_OFF** (currently in `60_power.cfg`) — suggested group: power
 
 
