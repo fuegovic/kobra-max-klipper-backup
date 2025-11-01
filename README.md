@@ -138,7 +138,7 @@ ln -s ~/Klipper-Adaptive-Meshing-Purging/Configuration ~/printer_data/config/KAM
 cp ~/Klipper-Adaptive-Meshing-Purging/Configuration/KAMP_Settings.cfg ~/printer_data/config/KAMP_Settings.cfg
 ```
 
-Sould be enabled in your `printer.cfg`:
+Make sure it is enabled in your `printer.cfg`:
 
 ```ini
 [include KAMP/KAMP_Settings.cfg]
