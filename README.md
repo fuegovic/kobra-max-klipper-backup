@@ -177,7 +177,7 @@ Custom macros are organized in macros by category:
 | `50_io.cfg`          | Input/output controls                |
 | `60_power.cfg`       | Power management (requires HA setup) |
 
-**📖 Full Documentation:** Macro Index
+**📖 Full Documentation:** [Macro Index](/printer_data/config/macros/MACRO_INDEX.md)
 
 ---
 
