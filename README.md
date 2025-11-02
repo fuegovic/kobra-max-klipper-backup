@@ -1,69 +1,115 @@
-# 🐍 Kobra Max - Klipper Setup & Backup Notes
-> This backup is provided by [Klipper-Backup](https://github.com/Staubgeborener/klipper-backup)
+# 🐍 Kobra Max - Klipper Configuration
 
-This document describes how this Klipper installation was created, configured, and backed up.  
-It serves both as a reproducible setup guide and a reference for restoring from backup.
+> **Backup provided by:** [Klipper-Backup](https://github.com/Staubgeborener/klipper-backup)
 
----
-
-## 🧱 Hardware
-
-**Printer:** Anycubic Kobra Max  
-**Mainboard:** Trigorilla Pro A v1.0.4  
-
-**Firmware Note:**  
-This board requires a resistor mod for Klipper compatibility — move the 0 Ω resistor from **R65 → R66** (or remove R65 and short R66).  
-If you’re not comfortable performing the hardware mod, use **Catboat** firmware instead:  
-👉 [https://github.com/printers-for-people/catboat](https://github.com/printers-for-people/catboat)
-
-**Host:** Raspberry Pi 3 (any Pi ≥ 3 or Zero 2 W also works)
+Complete setup guide and configuration reference for Anycubic Kobra Max running Klipper firmware.
 
 ---
 
-## 🪜 Base System
+## 📋 Table of Contents
 
-**OS:** Raspberry Pi OS Lite (32-bit)  
-**Install method:** Fresh image from [raspberrypi.com/software](https://www.raspberrypi.com/software/)  
-**Network:** SSH enabled, hostname and wifi set before first boot
+- [Hardware Specifications](#-hardware-specifications)
+- [Quick Start](#-quick-start)
+- [Initial Setup](#%EF%B8%8F-initial-setup)
+- [Custom Macros](#-custom-macros)
+- [Installed Plugins](#-installed-plugins)
+- [Maintenance](#-maintenance)
+- [Optional Tools](#-optional-tools)
 
 ---
 
-## ⚙️ KIAUH Installation
+## 🔧 Hardware Specifications
 
-**Reference:** [https://github.com/dw-0/kiauh](https://github.com/dw-0/kiauh)
+| Component  | Details                     |
+| ---------- | --------------------------- |
+| Printer    | Anycubic Kobra Max          |
+| Mainboard  | Trigorilla Pro A v1.0.4     |
+| Host       | Raspberry Pi 3+             |
+| OS         | Raspberry Pi OS Lite (32bit) |
+
+### ⚠️ Important Hardware Requirement
+
+> **Resistor Mod Required:** This board needs a hardware modification for Klipper compatibility.
+> 
+> **Options:**
+> - **Hardware mod:** Move 0Ω resistor from R65 → R66 (or remove R65 and short R66)
+> - **Alternative:** Use [Catboat firmware](https://github.com/printers-for-people/catboat) instead (no mod needed)
+
+---
+
+## 🚀 Quick Start
+
+<details>
+<summary><b>New Installation</b></summary>
+
+1. Flash Raspberry Pi OS Lite and enable SSH
+2. Install KIAUH and components → [See Initial Setup](#-initial-setup)
+3. Build and flash Klipper firmware → [See Firmware Build](#-firmware-build)
+4. Configure printer and macros
+5. Set up automatic backups → [See Klipper Backup](#-klipper-backup)
+
+</details>
+
+<details>
+<summary><b>Restore from Backup</b></summary>
+
+1. Install KIAUH and base components
+2. Clone this repository to `~/printer_data/config/`
+3. Flash firmware (if needed)
+4. Restart Klipper service
+
+</details>
+
+---
+
+## 🛠️ Initial Setup
+
+### 1. Base System Preparation
+
+**Requirements:**
+- Raspberry Pi 3 or newer (Zero 2 W also supported)
+- Raspberry Pi OS Lite (32-bit) fresh install
+- SSH enabled, network configured
+
+### 2. Install KIAUH
+
+[KIAUH](https://github.com/dw-0/kiauh) is the Klipper Installation And Update Helper.
 
 ```bash
+# Clone and launch KIAUH
 cd ~
 git clone https://github.com/dw-0/kiauh.git
 ./kiauh/kiauh.sh
-````
+```
 
-### Installed Components
+### 3. Install Core Components
 
-| Category        | Components                                                                                           | Notes                               |
-| --------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------- |
-| Firmware & API  | Klipper, Moonraker                                                                                   | Core firmware + API layer           |
-| Web Interface   | Mainsail, Fluidd                                                                                     | Both installed (use one as default) |
-| Client Config   | Mainsail config                                                                                      | Imported via KIAUH                  |
-| Webcam Streamer | Crowsnest                                                                                            | Recommended over MJPG-streamer      |
-| Extensions      | G-Code Shell Command, PrettyGCode, Mainsail Theme Installer (optional), Klipper-Backup (recommended) |                                     |
+Use KIAUH's menu to install the following:
 
-### Updates
+#### Core Services
+- **Klipper** - Firmware
+- **Moonraker** - API layer
 
-Use KIAUH’s update menu as needed. On a fresh system, only **System Update** typically runs.
+#### Web Interfaces
+- **Mainsail** (primary) or **Fluidd** (both can coexist)
+- **Mainsail Config** - Default configuration
+
+#### Utilities
+- **Crowsnest** - Webcam streaming (modern, recommended)
+
+#### Extensions
+- **G-Code Shell Command** - Execute shell scripts from G-code
+- **PrettyGCode** - 3D visualization
+- **Klipper-Backup** - Automatic GitHub backups
+- **Mainsail Theme Installer** *(optional)* - UI customization
 
 ---
 
-## 🧾 Macros
+## 🔨 Firmware Build
 
-Custom Klipper macros are organized in `printer_data/config/macros/`.  
-See the **[Macro Index](printer_data/config/macros/MACRO_INDEX.md)** for a complete list of available macros and their parameters.
+### Build Configuration
 
----
-
-## 🔧 Firmware Build
-
-Run via KIAUH or manually:
+Launch the Klipper build menu:
 
 ```bash
 cd ~/klipper
@@ -71,7 +117,7 @@ make clean
 make menuconfig
 ```
 
-### Configuration
+**Settings:**
 
 | Option              | Value        |
 | ------------------- | ------------ |
@@ -81,128 +127,226 @@ make menuconfig
 | Clock Speed         | 200 MHz      |
 | Low-Level Options   | All disabled |
 
-### Build
+### Compile Firmware
 
 ```bash
 make
-ls -lh out/klipper.bin
+ls -lh out/klipper.bin  # Verify output
 ```
 
-### Flash SD Card
+### Flash to Printer
+
+#### Prepare SD Card
 
 ```bash
-sudo mount /dev/sdx1 /mnt/printer_sd || sudo mount /dev/mmcblk0p1 /mnt/printer_sd
+# Mount SD card (adjust device path as needed)
+sudo mount /dev/sdx1 /mnt/printer_sd
+
+# Copy firmware with both filenames (compatibility)
 sudo cp ~/klipper/out/klipper.bin /mnt/printer_sd/firmware.bin
 sudo cp ~/klipper/out/klipper.bin /mnt/printer_sd/klipper.bin
+
+# Safely unmount
 sync
 sudo umount /mnt/printer_sd
 ```
 
-### Install Procedure
+#### Flash Procedure
 
 1. Insert SD card into printer
-2. Power **off** printer
-3. Power **on** printer (no USB connected)
+2. **Power OFF** printer completely
+3. **Power ON** printer (USB disconnected)
 4. Wait ~5 minutes for auto-flash
-5. Reconnect via USB and verify serial link
+5. Remove SD card
+6. Connect USB and verify serial communication
+
+---
+
+## 📝 Custom Macros
+
+Custom macros are organized in macros by category:
+
+| File                 | Purpose                              |
+| -------------------- | ------------------------------------ |
+| `00_helpers.cfg`     | Helper functions and utilities       |
+| `10_print.cfg`       | Print start/end sequences            |
+| `11_filament.cfg`    | Filament load/unload/change          |
+| `20_calibration.cfg` | Calibration routines                 |
+| `30_tuning.cfg`      | Performance tuning macros            |
+| `40_utils.cfg`       | General utilities                    |
+| `50_io.cfg`          | Input/output controls                |
+| `60_power.cfg`       | Power management (requires HA setup) |
+
+**📖 Full Documentation:** Macro Index
+
+---
+
+## 🧩 Installed Plugins
+
+### KAMP (Klipper Adaptive Meshing & Purging)
+
+Intelligent mesh leveling and purge lines that adapt to your print area.
+
+**Repository:** [kyleisah/Klipper-Adaptive-Meshing-Purging](https://github.com/kyleisah/Klipper-Adaptive-Meshing-Purging)
+
+<details>
+<summary><b>Installation Steps</b></summary>
+
+```bash
+# Clone repository
+cd ~
+git clone https://github.com/kyleisah/Klipper-Adaptive-Meshing-Purging.git
+
+# Create symlink and copy config
+ln -s ~/Klipper-Adaptive-Meshing-Purging/Configuration ~/printer_data/config/KAMP
+cp ~/Klipper-Adaptive-Meshing-Purging/Configuration/KAMP_Settings.cfg ~/printer_data/config/
+```
+
+**Enable in `printer.cfg`:**
+```ini
+[include KAMP_Settings.cfg]
+```
+
+</details>
+
+### Smart Power Control (Home Assistant)
+
+Automated power management via smart switch integration.
+
+**Features:**
+- Auto power-off after print completion
+- Remote power control
+- Scheduled shutdowns
+
+<details>
+<summary><b>Requirements & Setup</b></summary>
+
+**Prerequisites:**
+- Home Assistant instance
+- Smart switch/plug controlling printer power
+- Moonraker-Home Assistant integration configured
+
+**Configuration:**
+- Smart switch entity configured in Home Assistant
+- Power device referenced in macros (`60_power.cfg`)
+
+> ⚠️ **Note:** Without this setup, `POWER_OFF` and `SHUTDOWN` macros will fail. You can disable or modify them in 60_power.cfg.
+
+</details>
 
 ---
 
 ## 💾 Klipper Backup
 
-Installed via KIAUH → `Advanced → Klipper-Backup`.
+Automatic backup to GitHub via cron job.
 
-**GitHub token:**
-Generate at [https://github.com/settings/personal-access-tokens](https://github.com/settings/personal-access-tokens)
-Token requires: `repo`, `workflow`, `read:packages`, `write:packages`.
+### Initial Configuration
 
-**Initial setup:**
+Installed via: `KIAUH → Advanced → Klipper-Backup`
+
+**GitHub Token Setup:**
+
+1. Generate at [github.com/settings/personal-access-tokens](https://github.com/settings/personal-access-tokens)
+2. Required permissions: `repo`, `workflow`, `read:packages`, `write:packages`
+
+**Configure backup:**
 
 ```bash
 ~/kiauh/scripts/backup/backup.sh --configure
 ```
 
-Backups are automatic (via cron) or manual via:
+### Manual Backup
 
 ```bash
 ~/kiauh/scripts/backup/backup.sh
 ```
 
----
-
-## 🧩 Installed Plugins & Extensions
-
-### 🟣 Klipper Adaptive Meshing & Purging (KAMP)
-
-**Repo:** [https://github.com/kyleisah/Klipper-Adaptive-Meshing-Purging](https://github.com/kyleisah/Klipper-Adaptive-Meshing-Purging)
-
-**Installation:**
-
-```bash
-cd ~
-git clone https://github.com/kyleisah/Klipper-Adaptive-Meshing-Purging.git
-ln -s ~/Klipper-Adaptive-Meshing-Purging/Configuration ~/printer_data/config/KAMP
-cp ~/Klipper-Adaptive-Meshing-Purging/Configuration/KAMP_Settings.cfg ~/printer_data/config/KAMP_Settings.cfg
-```
-
-Make sure it is enabled in your `printer.cfg`:
-
-```ini
-[include KAMP/KAMP_Settings.cfg]
-```
-
-### 🔌 Smart Power Control (Home Assistant)
-
-**Requirements for power macros (`POWER_OFF`, `SHUTDOWN`):**
-
-The printer is connected to a smart switch (controlled via Home Assistant) to enable automated power off after prints complete.
-
-**Setup:**
-- Smart switch configured in Home Assistant
-- Moonraker integration with Home Assistant configured
-- Power device referenced in `printer.cfg` or macros
-
-**Without this setup:** Power macros will fail. You can disable or modify the `POWER_OFF` and `SHUTDOWN` macros in `printer_data/config/macros/60_power.cfg`.
+Backups run automatically via cron.
 
 ---
 
-## 🔄 Updating Klipper & Components
+## 🔄 Maintenance
 
-Use KIAUH or manual Git update:
+### Updating Components
+
+**Using KIAUH (Recommended):**
+
+Launch KIAUH and use the update menu to update all components.
+
+**Manual Updates:**
+
+<details>
+<summary><b>Update via Git</b></summary>
 
 ```bash
-# Klipper
+# Update Klipper
 cd ~/klipper
 git pull
 make clean
 make
+# Re-flash firmware if needed
 
-# Moonraker
+# Update Moonraker
 cd ~/moonraker
 git pull
 
-# Mainsail
+# Update Mainsail
 cd ~/mainsail
 git pull
 ```
 
-Then restart services:
-
+**Restart services:**
 ```bash
 sudo service klipper restart
 sudo service moonraker restart
 sudo service crowsnest restart
 ```
 
+</details>
+
 ---
 
-## 📦 Optional Tools & Notes
+## 📦 Optional Tools
 
-| Tool                         | Purpose                           | Install   |
-| ---------------------------- | --------------------------------- | --------- |
-| **Mainsail Theme Installer** | Customize Mainsail UI             | via KIAUH |
-| **PrettyGCode**              | 3D G-code preview                 | via KIAUH |
-| **G-Code Shell Command**     | Execute shell scripts from macros | via KIAUH |
-| **Fluidd**                   | Alternate Klipper web UI          | via KIAUH |
+| Tool                         | Purpose                           | Installation |
+| ---------------------------- | --------------------------------- | ------------ |
+| **Mainsail Theme Installer** | Customize Mainsail UI colors      | via KIAUH    |
+| **PrettyGCode**              | 3D G-code preview in browser      | via KIAUH    |
+| **G-Code Shell Command**     | Execute shell scripts from macros | via KIAUH    |
+| **Fluidd**                   | Alternative web UI to Mainsail    | via KIAUH    |
+
+---
+
+## 🆘 Troubleshooting
+
+<details>
+<summary><b>Firmware won't flash</b></summary>
+
+- Verify SD card is formatted FAT32
+- Ensure both `firmware.bin` and `klipper.bin` are copied
+- Try power cycling printer 2-3 times
+- Check that resistor mod is completed correctly
+
+</details>
+
+<details>
+<summary><b>Serial connection fails</b></summary>
+
+- Verify USB cable is data-capable (not charge-only)
+- Check `/dev/serial/by-id/` for device
+- Ensure firmware flashed successfully
+- Verify serial pins in menuconfig (PA3 & PA2)
+
+</details>
+
+<details>
+<summary><b>Power macros fail</b></summary>
+
+- Verify Home Assistant integration is configured
+- Check smart switch entity name in macros
+- Test manual control via Home Assistant first
+- See Smart Power Control section
+
+</details>
 
 ---
