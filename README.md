@@ -54,7 +54,14 @@ Use KIAUH’s update menu as needed. On a fresh system, only **System Update** t
 
 ---
 
-## 🔧 Firmware Build
+## � Macros
+
+Custom Klipper macros are organized in `printer_data/config/macros/`.  
+See the **[Macro Index](printer_data/config/macros/MACRO_INDEX.md)** for a complete list of available macros and their parameters.
+
+---
+
+## �🔧 Firmware Build
 
 Run via KIAUH or manually:
 
@@ -143,6 +150,19 @@ Make sure it is enabled in your `printer.cfg`:
 ```ini
 [include KAMP/KAMP_Settings.cfg]
 ```
+
+### 🔌 Smart Power Control (Home Assistant)
+
+**Requirements for power macros (`POWER_OFF`, `SHUTDOWN`):**
+
+The printer is connected to a smart switch (controlled via Home Assistant) to enable automated power off after prints complete.
+
+**Setup:**
+- Smart switch configured in Home Assistant
+- Moonraker integration with Home Assistant configured
+- Power device referenced in `printer.cfg` or macros
+
+**Without this setup:** Power macros will fail. You can disable or modify the `POWER_OFF` and `SHUTDOWN` macros in `printer_data/config/macros/60_power.cfg`.
 
 ---
 
