@@ -54,14 +54,14 @@ Use KIAUH’s update menu as needed. On a fresh system, only **System Update** t
 
 ---
 
-## � Macros
+## 🧾 Macros
 
 Custom Klipper macros are organized in `printer_data/config/macros/`.  
 See the **[Macro Index](printer_data/config/macros/MACRO_INDEX.md)** for a complete list of available macros and their parameters.
 
 ---
 
-## �🔧 Firmware Build
+## 🔧 Firmware Build
 
 Run via KIAUH or manually:
 
