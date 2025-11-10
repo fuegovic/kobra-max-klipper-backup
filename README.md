@@ -318,6 +318,8 @@ sudo service crowsnest restart
 | **Pause/Resume Button**    | GPIO25                                                | Momentary push to GND; internal pull-up (`^`)                                                                               |
 | **Status LED (WS2812B)**   | GPIO18 (data), 5 V, GND                               | Series resistor 330–470 Ω on data line; optional 1000 µF capacitor across 5 V/GND; single LED controlled via Klipper macros |
 
+see: [ssd1306 display on rpi host mcu](https://docs.meteyou.wtf/ssd1306-display/rpi-host-mcu/) to configure the I²C display 
+
 ---
 
 ## 📦 Optional Tools
