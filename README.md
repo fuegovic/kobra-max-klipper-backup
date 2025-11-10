@@ -15,7 +15,7 @@ Complete setup guide and configuration reference for Anycubic Kobra Max running 
 - [Installed Plugins](#-installed-plugins)
 - [Maintenance](#-maintenance)
 - [Optional Tools](#-optional-tools)
-
+- [Hardware](#%EF%B8%8F-hardware)
 ---
 
 ## 🔧 Hardware Specifications
@@ -303,6 +303,20 @@ sudo service crowsnest restart
 ```
 
 </details>
+
+---
+
+## 🕹️ Hardware
+
+| Function                   | Pin / Wiring                                          | Notes                                                                                                                       |
+| -------------------------- | ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| **SSD1306 OLED Display**   | I²C: SDA → GPIO2, SCL → GPIO3; VCC → 3.3 V, GND → GND | Uses Pi’s I²C bus 1 (`i2c.1`)                                                                                               |
+| **Rotary Encoder A/B**     | GPIO17 (A), GPIO27 (B)                                | Active-low, connect one side of each to GPIO, the other to GND; internal pull-ups enabled (`^`)                             |
+| **Encoder Click (Select)** | GPIO22                                                | Momentary push to GND; internal pull-up enabled (`^`)                                                                       |
+| **Back Button**            | GPIO23                                                | Momentary push to GND; internal pull-up enabled (`^`)                                                                       |
+| **Emergency Stop**         | GPIO24                                                | Momentary push to GND; pull-up + invert logic (`^!`) so press triggers immediately                                          |
+| **Pause/Resume Button**    | GPIO25                                                | Momentary push to GND; internal pull-up (`^`)                                                                               |
+| **Status LED (WS2812B)**   | GPIO18 (data), 5 V, GND                               | Series resistor 330–470 Ω on data line; optional 1000 µF capacitor across 5 V/GND; single LED controlled via Klipper macros |
 
 ---
 
